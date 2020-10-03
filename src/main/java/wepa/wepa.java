@@ -1,13 +1,13 @@
-package projekti;
+package wepa;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MyApplication {
+public class wepa {
 
     public static void main(String[] args) {
-        SpringApplication.run(MyApplication.class);
+        SpringApplication.run(wepa.class);
     }
 
 }
