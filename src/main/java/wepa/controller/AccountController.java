@@ -1,5 +1,7 @@
 package wepa.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -29,7 +31,7 @@ public class AccountController {
         if(accountRepository.findByUsername(username) != null) {
             return "redirect:/registration";
         }
-        Account account = new Account(firstname, surname, username, passwordEncoder.encode(password));
+        Account account = new Account(firstname, surname, username, passwordEncoder.encode(password), new ArrayList<>(), new byte[0]);
         accountRepository.save(account);
         return "redirect:/login";
     }

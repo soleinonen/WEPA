@@ -21,13 +21,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Account extends AbstractPersistable<Long> {
 
-    public Account(String firstname, String surname, String username, String password) {
-        this.firstname = firstname;
-        this.surname = surname;
-        this.password = password;
-        this.skills = new ArrayList<>();
-    }
-
     @NotEmpty
     @NotNull
     private String firstname;
@@ -47,7 +40,7 @@ public class Account extends AbstractPersistable<Long> {
     @ManyToMany
     private List<Skill> skills;
 
-    @Lob
+    //@Lob
     private byte[] picture;
 
 }
