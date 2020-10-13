@@ -1,6 +1,11 @@
 package wepa.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -16,19 +21,33 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Account extends AbstractPersistable<Long> {
 
-    @NotEmpty
-    @NotNull
-    String firstname;
+    public Account(String firstname, String surname, String username, String password) {
+        this.firstname = firstname;
+        this.surname = surname;
+        this.password = password;
+        this.skills = new ArrayList<>();
+    }
 
     @NotEmpty
     @NotNull
-    String surname;
+    private String firstname;
 
     @NotEmpty
     @NotNull
-    String username;
+    private String surname;
 
     @NotEmpty
     @NotNull
-    String password;
+    private String username;
+
+    @NotEmpty
+    @NotNull
+    private String password;
+
+    @ManyToMany
+    private List<Skill> skills;
+
+    @Lob
+    private byte[] picture;
+
 }

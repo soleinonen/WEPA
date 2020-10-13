@@ -6,8 +6,10 @@
     </head>
     <body>
         <nav th:replace="fragments/layout::navigation"></nav>
-        <h1>This is for the message feed.</h1>
-        <footer th:replace="fragments/layout::footer"></footer>
-        <div th:replace="fragments/layout::assets"></div>
+        <div class="container">
+            <h1>This is for the message feed.</h1>
+            <footer th:replace="fragments/layout::footer"></footer>
+            <div th:replace="fragments/layout::assets"></div>
+        </div>
     </body>
 </html>

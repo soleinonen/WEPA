@@ -6,9 +6,29 @@
     </head>
     <body>
         <nav th:replace="fragments/layout::navigation"></nav>
-        <h1>
-            This is the profile page!
-        </h1>
+            <div class="container">
+                <h1 th:text="${name}">Name</h1>
+                <img th:src="@{/profile/picture/content}"/>
+                <form method="POST" th:action="@{/profile/picture}" enctype="multipart/form-data">
+                    <div class="form-group row">
+                        <input class="form-control" type="file" name="file" id="fileSelect" />
+                        <button type="submit" class="btn btn-dark">Change picture</button>
+                    </div>
+                </form>
+                <h2>Most praised skills</h2>
+                <ul class="list-group list-group flush">
+                    <li class="list-group-item" th:each="skill:${skills}">
+                        <span th:text="${skill.skillName}">skill name</span>
+                    </li>
+                </ul>
+                <form method="POST" th:action="@{/profile}">
+                    <div class="form-group">
+                        <h3 for="skillnameinput">Add a new skill</h3>
+                        <input type="text" class="form-control" id="skillnameinput" name="skillName"><br>
+                        <button type="submit" class="btn btn-dark">Add</button>
+                    </div>
+                </form>
+            </div>
         <footer th:replace="fragments/layout::footer"></footer>
         <div th:replace="fragments/layout::assets"></div>
     </body>

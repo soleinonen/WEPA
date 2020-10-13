@@ -34,7 +34,6 @@ public class AccountController {
         return "redirect:/login";
     }
 
-
     @GetMapping("/feed")
     public String login() {
         return "feed";

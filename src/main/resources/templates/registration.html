@@ -6,9 +6,9 @@
     </head>
     <body>
         <nav th:replace="fragments/layout::navigation"></nav>
-        <div class="container"></div>
-            <h1 class="col-md-6">Sign up for WEPA app!</h1>
-            <p class="col-md-6">Give your name and a username together with a password to sign up.</p>
+        <div class="container">
+            <h1 class="col">Sign up for WEPA app!</h1>
+            <p class="col">Give your name and a username together with a password to sign up.</p>
             <form method="POST" th:action="@{/registration}">
                 <div class="form-group col-md-6">
                     <label for="firstname">First name:</label>
@@ -27,38 +27,9 @@
                     <input type="password" class="form-control" id="password" name="password">
                 </div>
                 <div class="form-group col-md-6">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-dark">Submit</button>
                 </div>
             </form>
-            <!--
-            <form method="POST" th:action="@{/registration}">
-                <div class="row">
-                    <div class="col-6">
-                        <label for="firstname">First name:</label>
-                        <input type="text" id="firstname" name="firstname"/>
-                    </div>
-                    <div class="col-6">
-                        <label for="surname">Surname:</label>
-                        <input type="text" id="surname" name="surname"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <label for="username">Username:</label>
-                        <input type="text" id="username" name="username"/>
-                    </div>
-                    <div class="col-6">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <input type="submit" value="Sign up"/>
-                    </div>
-                </div>
-            </form>
-        -->
         </div>
         <footer th:replace="fragments/layout::footer"></footer>
         <div th:replace="fragments/layout::assets"></div>
