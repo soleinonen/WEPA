@@ -3,6 +3,7 @@ package wepa.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +77,7 @@ public class ProfileController {
         return "redirect:/profile";
     }
 
+    @Transactional
     @GetMapping("/profile/picture/content")
     @ResponseBody
     public byte[] getContent() {
