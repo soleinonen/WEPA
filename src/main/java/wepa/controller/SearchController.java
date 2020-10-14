@@ -1,7 +1,5 @@
 package wepa.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,23 +9,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import wepa.model.Account;
-import wepa.repository.AccountRepository;
+import wepa.service.AccountService;
 
 @Controller
 public class SearchController {
 
     @Autowired
-    AccountRepository accountRepository;
+    AccountService accountService;
 
     @GetMapping("/search")
     public String searchUsers(@RequestParam("query") String query, Model model) {
-        List<Account> persons = new ArrayList<>();
-        List<String> queryParts = Arrays.asList(query.split(" "));
-        persons = accountRepository.findBySurnameIn(queryParts);
-        if(persons.isEmpty()) {
+        List<Account> users = accountService.queryForUsers(query);
+        if(users.isEmpty()) {
             model.addAttribute("error", "No persons found, check your input.");
         }
-        model.addAttribute("persons", persons);
+        model.addAttribute("persons", users);
         return "searchresult";
     }
     

@@ -1,7 +1,5 @@
 package wepa.controller;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -9,14 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import wepa.model.Account;
-import wepa.repository.AccountRepository;
+import wepa.service.AccountService;
 
 @Controller
 public class AccountController {
-    
+
     @Autowired
-    AccountRepository accountRepository;
+    AccountService accountService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -28,12 +25,12 @@ public class AccountController {
 
     @PostMapping("/registration")
     public String addAccount(@RequestParam String firstname, @RequestParam String surname, @RequestParam String username, @RequestParam String password) {
-        if(accountRepository.findByUsername(username) != null) {
+        boolean creationSuccesful = accountService.createNewAccount(firstname, surname, username, password);
+        if(creationSuccesful) {
+            return "redirect:/login";
+        } else {
             return "redirect:/registration";
         }
-        Account account = new Account(firstname, surname, username, passwordEncoder.encode(password), new ArrayList<>(), new byte[0]);
-        accountRepository.save(account);
-        return "redirect:/login";
     }
 
     @GetMapping("/feed")
