@@ -3,6 +3,7 @@
     <head th:fragment="head(title)">
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" th:href="@{/css/styles.css}"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <title th:text="${title}" >Page title</title>
     </head>
@@ -27,7 +28,7 @@
                 <a class="nav-link" href="/logout">Log out</a>
               </li>
             </ul>
-            <form method="GET" th:action="@{/search}" form-inline my-2 my-lg-0>
+            <form class="form-inline my-2 my-lg-0" method="GET" th:action="@{/search}" >
                 <input class="form-control mr-sm-2" type="search" placeholder="Search a person" aria-label="Search a person" name="query">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
@@ -42,9 +43,9 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     </div>
 
-    <footer th:fragment="footer" class="footer bottom footer-bg-dark">
+    <footer th:fragment="footer" class="footer fixed-bottom footer-bg-dark">
       <div class="container">
-        <p>All rights reserved... Just kidding</p></p5>
+        <p>All rights reserved... Just kidding</p>
       </div>
     </footer>
 </html>

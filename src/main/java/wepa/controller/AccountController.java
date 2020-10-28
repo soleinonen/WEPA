@@ -24,8 +24,8 @@ public class AccountController {
     }
 
     @PostMapping("/registration")
-    public String addAccount(@RequestParam String firstname, @RequestParam String surname, @RequestParam String username, @RequestParam String password) {
-        boolean creationSuccesful = accountService.createNewAccount(firstname, surname, username, password);
+    public String addAccount(@RequestParam String firstname, @RequestParam String surname, @RequestParam String username, @RequestParam String password, @RequestParam String profilePath) {
+        boolean creationSuccesful = accountService.createNewAccount(firstname, surname, username, password, profilePath);
         if(creationSuccesful) {
             return "redirect:/login";
         } else {
@@ -34,7 +34,7 @@ public class AccountController {
     }
 
     @GetMapping("/feed")
-    public String login() {
+    public String showFeed() {
         return "feed";
     }
 

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -37,10 +38,27 @@ public class Account extends AbstractPersistable<Long> {
     @NotNull
     private String password;
 
-    @ManyToMany
-    private List<Skill> skills;
+    @NotEmpty
+    @NotNull
+    private String profilePath;
 
-    //@Lob
-    private byte[] picture;
+    @ManyToMany
+    private List<Skill> skills = new ArrayList<>();
+
+    @Lob
+    private byte[] picture = new byte[0];
+
+    @ManyToMany
+    private List<Account> friends = new ArrayList<>();
+
+    @OneToMany(mappedBy = "reviewer")
+    private List<FriendRequest> requestsToBeReviewed = new ArrayList<>();
+
+    @OneToMany(mappedBy = "initiator")
+    private List<FriendRequest> requestsSent = new ArrayList<>();
+
+    public void addFriend(Account a) {
+        this.friends.add(a);
+    }
 
 }

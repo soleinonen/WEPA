@@ -27,6 +27,7 @@ public class ProductionSecurityConfiguration extends WebSecurityConfigurerAdapte
         http.authorizeRequests()
         .antMatchers(HttpMethod.GET,"/registration").permitAll()
         .antMatchers(HttpMethod.POST,"/registration").permitAll()
+        .antMatchers(HttpMethod.GET,"/css/**").permitAll()
         .anyRequest().authenticated().and()
         .formLogin().loginPage("/login")
         .defaultSuccessUrl("/feed").permitAll().and()

@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import wepa.model.Account;
+import wepa.model.FriendRequest;
 import wepa.model.Skill;
 import wepa.service.AccountService;
+import wepa.service.FriendRequestService;
 
 @Controller
 public class ProfileController {
@@ -26,12 +28,17 @@ public class ProfileController {
     @Autowired
     AccountService accountService;
 
+    @Autowired
+    FriendRequestService friendRequestService;
+
     @GetMapping("/profile")
     public String showProfile(Model model) {
         Account account = accountService.getLoggedInUserAccount();
-        List<Skill> skills = accountService.getSkillsOfLoggedInUser();
+        List<Skill> skills = account.getSkills();
+        List<FriendRequest> requests = friendRequestService.getRequestsToBeReviewed(account);
         model.addAttribute("name", account.getFirstname()+" "+account.getSurname());
         model.addAttribute("skills", skills);
+        model.addAttribute("requests", requests);
         return "profile";
     }
 

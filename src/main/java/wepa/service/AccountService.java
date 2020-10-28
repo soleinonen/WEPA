@@ -31,11 +31,16 @@ public class AccountService {
     @Autowired
     SkillRepository skillRepository;
 
-    public boolean createNewAccount(String firstname, String surname, String username, String password) {
+    public boolean createNewAccount(String firstname, String surname, String username, String password, String profilePath) {
         if(accountRepository.findByUsername(username) != null) {
             return false;
         }
-        Account account = new Account(firstname, surname, username, passwordEncoder.encode(password), new ArrayList<>(), new byte[0]);
+        Account account = new Account();
+        account.setFirstname(firstname);
+        account.setSurname(surname);
+        account.setUsername(username);
+        account.setPassword(passwordEncoder.encode(password));
+        account.setProfilePath(profilePath);
         accountRepository.save(account);
         return true;
     }
@@ -70,9 +75,13 @@ public class AccountService {
         accountRepository.save(account);
     }
 
-    @Transactional
     public byte[] getPictureOfLoggedInUser() {
         Account account = getLoggedInUserAccount();
+        return account.getPicture();
+    }
+
+    public byte[] getPictureByProfilePath(String profilePath) {
+        Account account = accountRepository.findByProfilePath(profilePath);
         return account.getPicture();
     }
 
@@ -86,5 +95,9 @@ public class AccountService {
         List<String> queryParts = Arrays.asList(query.split(" "));
         persons = accountRepository.findBySurnameIn(queryParts);
         return persons;
+    }
+
+    public Account getByProfilePath(String profilePath) {
+        return accountRepository.findByProfilePath(profilePath);
     }
 }

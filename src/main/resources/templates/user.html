@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/layout::head(User)">
+        <meta charset="UTF-8" />
+        <title>Title</title>
+    </head>
+    <body>
+        <nav th:replace="fragments/layout::navigation"></nav>
+            <div class="container">
+                <div class="media">
+                    <img class="align-self-start mr-3" th:src="@{/users/{profilePath}/content(profilePath=${profilePath})}"/>
+                    <div class="media-body">
+                        <h1 class="mt-0" th:text="${name}">Name</h1>
+                        <form method="POST" th:action="@{/friendrequest/{profilePath}(profilePath=${profilePath})}">   
+                            <button type="submit" class="btn btn-dark">Send friend request!</button>
+                        </form>
+                        <h3 class="mt-0">Most praised skills</h3>
+                        <ul class="list-group list-group flush">
+                            <li class="list-group-item" th:each="skill:${skills}">
+                                <span th:text="${skill.skillName}">skill name</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        <footer th:replace="fragments/layout::footer"></footer>
+        <div th:replace="fragments/layout::assets"></div>
+    </body>
+</html>

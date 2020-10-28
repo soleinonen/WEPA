@@ -12,7 +12,7 @@
             <div th:if="${not #lists.isEmpty(persons)}">
                 <ul class="list-group list-group flush">
                     <li class="list-group-item" th:each="person:${persons}">
-                        <a th:href="@{/}" th:text="${person.firstname+' '+person.surname}">name</a>
+                        <a th:href="@{/users/{profilePath}(profilePath=${person.profilePath})}" th:text="${person.firstname+' '+person.surname}">name</a>
                     </li>
                 </ul>
             </div>
