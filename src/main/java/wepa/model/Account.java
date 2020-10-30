@@ -49,7 +49,7 @@ public class Account extends AbstractPersistable<Long> {
     @ManyToMany
     private List<Skill> skills = new ArrayList<>();
 
-    @Lob
+    //@Lob
     private byte[] picture = new byte[0];
 
     @ManyToMany
