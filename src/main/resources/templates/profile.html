@@ -28,24 +28,28 @@
                         <button type="submit" class="btn btn-dark">Add</button>
                     </div>
                 </form>
-                <h2>Pending friend requests</h2>
-                <ul class="list-group list-group flush">
-                    <li class=list-group-item th:each="request:${requests}">
-                        <div class="row">
-                            <div class="col-8">
-                                <a th:href="@{/users/{profilePath}(profilePath=${request.initiator.profilePath})}" th:text="${request.initiator.firstname+' '+request.initiator.surname}">name</a>
+                <div th:if="${not #lists.isEmpty(requests)}">
+                    <h2>Pending friend requests</h2>
+                    <ul class="list-group list-group flush">
+                        <li class=list-group-item th:each="request:${requests}">
+                            <div class="row">
+                                <div class="col-8">
+                                    <a th:href="@{/users/{profilePath}(profilePath=${request.initiator.profilePath})}" th:text="${request.initiator.firstname+' '+request.initiator.surname}">name</a>
+                                </div>
+                                <div class="col-2">
+                                    <form method="POST" th:action="@{/friendrequest/accept/{id}(id=${request.id})}">
+                                        <button type="submit" class="btn btn-success btn-sm">Accept</button>
+                                    </form>
+                                </div> 
+                                <div class="col-2">
+                                    <form method="POST" th:action="@{/friendrequest/decline/{id}(id=${request.id})}">
+                                        <button type="submit" class="btn btn-danger btn-sm">Decline</button>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="col-2">
-                                <form method="POST" th:action="@{/friendrequest/accept/{id}(id=${request.id})}">
-                                    <button type="submit" class="btn btn-success btn-sm">Accept</button>
-                                </form>
-                            </div> 
-                            <div class="col-2">
-                                <button type="submit" class="btn btn-danger btn-sm">Decline</button>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         <footer th:replace="fragments/layout::footer"></footer>
         <div th:replace="fragments/layout::assets"></div>

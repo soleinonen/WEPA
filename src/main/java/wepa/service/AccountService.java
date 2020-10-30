@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -94,6 +92,12 @@ public class AccountService {
         List<Account> persons = new ArrayList<>();
         List<String> queryParts = Arrays.asList(query.split(" "));
         persons = accountRepository.findBySurnameIn(queryParts);
+        List<Account> personsByFirstname = accountRepository.findByFirstnameIn(queryParts);
+        for(Account a: personsByFirstname) {
+            if(!persons.contains(a)) {
+                persons.add(a);
+            }
+        }
         return persons;
     }
 

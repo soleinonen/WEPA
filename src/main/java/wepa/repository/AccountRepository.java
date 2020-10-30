@@ -9,10 +9,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import wepa.model.Account;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
-    @EntityGraph(attributePaths={"skills"})
+    @EntityGraph(value="Account.skills")
     Account findByUsername(String username);
+
     Account findBySurname(String surname);
     Account findByFirstname(String firstname);
     List<Account> findBySurnameIn(Collection<String> query);
+    List<Account> findByFirstnameIn(Collection<String> query);
+    @EntityGraph(value="Account.skills")
     Account findByProfilePath(String profilePath);
 }

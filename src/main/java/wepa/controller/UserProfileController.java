@@ -26,6 +26,7 @@ public class UserProfileController {
         model.addAttribute("name", account.getFirstname()+" "+account.getSurname());
         model.addAttribute("skills", skills);
         model.addAttribute("profilePath", account.getProfilePath());
+        model.addAttribute("friendsOfLoggedInUser", accountService.getLoggedInUserAccount().getFriends());
         return "user";
     }
 

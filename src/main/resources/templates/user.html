@@ -11,8 +11,8 @@
                     <img class="align-self-start mr-3" th:src="@{/users/{profilePath}/content(profilePath=${profilePath})}"/>
                     <div class="media-body">
                         <h1 class="mt-0" th:text="${name}">Name</h1>
-                        <form method="POST" th:action="@{/friendrequest/{profilePath}(profilePath=${profilePath})}">   
-                            <button type="submit" class="btn btn-dark">Send friend request!</button>
+                        <form method="POST" th:action="@{/friendrequest/{profilePath}(profilePath=${profilePath})}">
+                                <button type="submit" class="btn btn-dark">Send friend request!</button>
                         </form>
                         <h3 class="mt-0">Most praised skills</h3>
                         <ul class="list-group list-group flush">

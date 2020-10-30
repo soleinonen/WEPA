@@ -16,7 +16,9 @@ public class FriendRequestService {
     FriendRequestRepository friendRequestRepository;
 
     public void createNewRequest(FriendRequest fr) {
-        friendRequestRepository.save(fr);
+        if(friendRequestRepository.findByInitiatorAndReviewer(fr.getInitiator(), fr.getReviewer()) == null && !fr.getInitiator().getFriends().contains(fr.getReviewer())) {
+            friendRequestRepository.save(fr);
+        }
     }
     
     public List<FriendRequest> getRequestsToBeReviewed(Account account) {
@@ -25,7 +27,14 @@ public class FriendRequestService {
 
     public void acceptRequest(Long id) {
         FriendRequest fr = friendRequestRepository.getOne(id);
-        fr.getInitiator().addFriend(fr.getReviewer());
+        if(!fr.getInitiator().getFriends().contains(fr.getReviewer())) {
+            fr.getInitiator().addFriend(fr.getReviewer());
+            fr.getReviewer().addFriend(fr.getInitiator());
+        }
+        friendRequestRepository.deleteById(id);
+    }
+
+    public void declineRequest(Long id) {
         friendRequestRepository.deleteById(id);
     }
 }
