@@ -65,4 +65,8 @@ public class Account extends AbstractPersistable<Long> {
         this.friends.add(a);
     }
 
+    public void removeFriend(Account a) {
+        this.friends.remove(a);
+    }
+
 }

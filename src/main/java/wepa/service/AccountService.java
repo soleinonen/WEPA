@@ -104,4 +104,13 @@ public class AccountService {
     public Account getByProfilePath(String profilePath) {
         return accountRepository.findByProfilePath(profilePath);
     }
+
+    public void removeConnection(String profilePath) {
+        Account account = getLoggedInUserAccount();
+        Account connection = accountRepository.findByProfilePath(profilePath);
+        account.removeFriend(connection);
+        connection.removeFriend(account);
+        accountRepository.save(account);
+        accountRepository.save(connection);
+    }
 }

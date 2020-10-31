@@ -16,7 +16,7 @@ import wepa.service.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
-@Profile("production")
+@Profile({"production", "test"})
 public class ProductionSecurityConfiguration extends WebSecurityConfigurerAdapter {
     
     @Autowired

@@ -1,38 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/layout::head(Profile)">
+    <head th:replace="fragments/layout::head(Connections)">
         <meta charset="UTF-8" />
         <title>Title</title>
     </head>
     <body class="body">
         <nav th:replace="fragments/layout::navigation"></nav>
             <div class="container">
-                <h1 th:text="${name}">Name</h1>
-                <img th:src="@{/profile/picture/content}"/>
-                <form method="POST" th:action="@{/profile/picture}" enctype="multipart/form-data">
-                    <div class="form-group row">
-                        <input class="form-control" type="file" name="file" id="fileSelect" />
-                        <button type="submit" class="btn btn-dark">Change picture</button>
-                    </div>
-                </form>
-                <form method="GET" th:action="@{/profile/connections}">
-                    <div class="form-group row">
-                        <button class="btn btn-dark">Show my connections</button>
-                    </div>
-                </form>
-                <h2>Most praised skills</h2>
-                <ul class="list-group list-group flush">
-                    <li class="list-group-item" th:each="skill:${skills}">
-                        <span th:text="${skill.skillName}">skill name</span>
-                    </li>
-                </ul>
-                <form method="POST" th:action="@{/profile}">
-                    <div class="form-group">
-                        <h3 for="skillnameinput">Add a new skill</h3>
-                        <input type="text" class="form-control" id="skillnameinput" name="skillName"><br>
-                        <button type="submit" class="btn btn-dark">Add</button>
-                    </div>
-                </form>
                 <div th:if="${not #lists.isEmpty(requests)}">
                     <h2>Pending connection requests</h2>
                     <ul class="list-group list-group flush">
@@ -49,6 +23,23 @@
                                 <div class="col-2">
                                     <form method="POST" th:action="@{/friendrequest/decline/{id}(id=${request.id})}">
                                         <button type="submit" class="btn btn-danger btn-sm">Decline</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h2>Connections</h2>
+                    <ul class="list-group list-group flush">
+                        <li class="list-group-item" th:each="connection:${connections}">
+                            <div class="row">
+                                <div class="col-10">
+                                    <a th:href="@{/users/{profilePath}(profilePath=${connection.profilePath})}" th:text="${connection.firstname+' '+connection.surname}">name</a>
+                                </div>
+                                <div class="col-2">
+                                    <form method="POST" th:action="@{/profile/connections/remove/{profilePath}(profilePath=${connection.profilePath})}">
+                                        <button type="submit" class="btn btn-danger btn-sm">Remove</button>
                                     </form>
                                 </div>
                             </div>

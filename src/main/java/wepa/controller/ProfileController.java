@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -61,5 +62,19 @@ public class ProfileController {
     @ResponseBody
     public byte[] getContent() {
         return accountService.getPictureOfLoggedInUser();
+    }
+
+    @GetMapping("/profile/connections")
+    public String showProfileConnections(Model model) {
+        Account account = accountService.getLoggedInUserAccount();
+        model.addAttribute("connections", account.getFriends());
+        model.addAttribute("requests", friendRequestService.getRequestsToBeReviewed(account));
+        return "connections";
+    }
+
+    @PostMapping("/profile/connections/remove/{profilePath}")
+    public String removeConnection(@PathVariable String profilePath) {
+        accountService.removeConnection(profilePath);
+        return "redirect:/profile/connections";
     }
 }
