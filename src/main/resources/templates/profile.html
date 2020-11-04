@@ -8,7 +8,7 @@
         <nav th:replace="fragments/layout::navigation"></nav>
             <div class="container">
                 <h1 th:text="${name}">Name</h1>
-                <img th:src="@{/profile/picture/content}"/>
+                <img th:src="@{/profile/picture/content}" class="img-fluid"/>
                 <form method="POST" th:action="@{/profile/picture}" enctype="multipart/form-data">
                     <div class="form-group row">
                         <input class="form-control" type="file" name="file" id="fileSelect" />
@@ -21,12 +21,12 @@
                     </div>
                 </form>
                 <h2>Most praised skills</h2>
-                <ul class="list-group list-group flush">
+                <ul class="list-group list-group">
                     <li class="list-group-item" th:each="skill:${skills}">
                         <span th:text="${skill.skillName}">skill name</span>
                     </li>
                 </ul>
-                <form method="POST" th:action="@{/profile}">
+                <form method="POST" th:action="@{/profile/skills}">
                     <div class="form-group">
                         <h3 for="skillnameinput">Add a new skill</h3>
                         <input type="text" class="form-control" id="skillnameinput" name="skillName"><br>

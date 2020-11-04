@@ -29,6 +29,9 @@ public class AccountService {
     @Autowired
     SkillRepository skillRepository;
 
+    @Autowired
+    SkillLikeService skillLikeService;
+
     public boolean createNewAccount(String firstname, String surname, String username, String password, String profilePath) {
         if(accountRepository.findByUsername(username) != null) {
             return false;
@@ -63,8 +66,8 @@ public class AccountService {
             skillRepository.save(skill);
         }
         userSkills.add(skill);
-        account.setSkills(userSkills);
         accountRepository.save(account);
+        skillLikeService.addSkillLike(skill.getId(), account.getProfilePath());
     }
 
     public void changePictureForLoggedInUser(MultipartFile file) throws IOException {
@@ -112,5 +115,9 @@ public class AccountService {
         connection.removeFriend(account);
         accountRepository.save(account);
         accountRepository.save(connection);
+    }
+
+    public Account getAccountById(Long id) {
+        return accountRepository.getOne(id);
     }
 }

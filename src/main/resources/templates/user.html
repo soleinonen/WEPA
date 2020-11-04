@@ -15,9 +15,14 @@
                                 <button type="submit" class="btn btn-dark">Send friend request!</button>
                         </form>
                         <h3 class="mt-0">Most praised skills</h3>
-                        <ul class="list-group list-group flush">
-                            <li class="list-group-item" th:each="skill:${skills}">
+                        <ul class="list-group list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center" th:each="skill:${skillObjects}">
                                 <span th:text="${skill.skillName}">skill name</span>
+                                    <form method="POST" th:action="@{/users/{profilePath}/skills/{skillId}(profilePath=${profilePath}, skillId=${skill.id})}">
+                                        <button type="submit" class="btn btn-success btn-sm">Endorse
+                                            <span class="badge badge-dark" th:text="${skill.likeCount-1}">Likes</span>
+                                        </button>
+                                    </form>
                             </li>
                         </ul>
                     </div>
