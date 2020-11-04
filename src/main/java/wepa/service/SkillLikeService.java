@@ -33,10 +33,11 @@ public class SkillLikeService {
         SkillLike sl = new SkillLike();
         Skill skill = skillRepository.getOne(skillId);
         Account skillOwner = accountService.getByProfilePath(skillOwnerProfilePath);
+        Account loggedInAccount = accountService.getLoggedInUserAccount();
         sl.setSkill(skill);
-        sl.setSkillLiker(accountService.getLoggedInUserAccount());
+        sl.setSkillLiker(loggedInAccount);
         sl.setSkillOwner(skillOwner);
-        if(!skillLikeRepository.exists(Example.of(sl))) {
+        if(!skillLikeRepository.exists(Example.of(sl)) && (loggedInAccount.getFriends().contains(skillOwner) || skillOwner.equals(loggedInAccount))) {
             skillLikeRepository.save(sl);
         }
     }
