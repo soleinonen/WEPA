@@ -16,8 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 import wepa.model.Account;
 import wepa.model.FriendRequest;
 import wepa.model.Skill;
+import wepa.repository.SkillLikesDto;
 import wepa.service.AccountService;
 import wepa.service.FriendRequestService;
+import wepa.service.SkillLikeService;
 
 @Controller
 public class ProfileController {
@@ -28,13 +30,19 @@ public class ProfileController {
     @Autowired
     FriendRequestService friendRequestService;
 
+    @Autowired
+    SkillLikeService skillLikeService;
+
     @GetMapping("/profile")
     public String showProfile(Model model) {
         Account account = accountService.getLoggedInUserAccount();
-        List<Skill> skills = account.getSkills();
+        //List<Skill> skills = account.getSkills();
         List<FriendRequest> requests = friendRequestService.getRequestsToBeReviewed(account);
         model.addAttribute("name", account.getFirstname()+" "+account.getSurname());
-        model.addAttribute("skills", skills);
+        //model.addAttribute("skills", skills);
+        List<List<SkillLikesDto>> list = skillLikeService.getSkillLikes(account);
+        model.addAttribute("topThreeSkills", list.get(0));
+        model.addAttribute("otherSkills", list.get(1));
         model.addAttribute("requests", requests);
         return "profile";
     }

@@ -1,5 +1,6 @@
 package wepa.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,22 @@ public class SkillLikeService {
     @Autowired
     SkillRepository skillRepository;
 
-    public List<SkillLikesDto> getSkillLikes(Account account) {
-        return skillLikeRepository.findSkillLikeByOwner(account.getId());
+    public List<List<SkillLikesDto>> getSkillLikes(Account account) {
+        List<SkillLikesDto> list = skillLikeRepository.findSkillLikeByOwner(account.getId());
+        int size = list.size();
+        List<List<SkillLikesDto>> result = new ArrayList<>(); 
+        List<SkillLikesDto> topThree = new ArrayList<>();
+        List<SkillLikesDto> rest = new ArrayList<>();
+        if(size > 3) {
+            topThree = list.subList(0, 3);
+            rest = list.subList(3, size);
+        } else {
+            topThree = list;
+            rest = new ArrayList<>();
+        }
+        result.add(topThree);
+        result.add(rest);
+        return result;
     }
 
     public void addSkillLike(Long skillId, String skillOwnerProfilePath) {

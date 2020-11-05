@@ -4,30 +4,24 @@
         <meta charset="UTF-8" />
         <title>Title</title>
     </head>
-    <body>
+    <body class="body">
         <nav th:replace="fragments/layout::navigation"></nav>
             <div class="container">
-                <div class="media">
-                    <img class="align-self-start mr-3" th:src="@{/users/{profilePath}/content(profilePath=${profilePath})}"/>
+                <h1 class="mt-0" th:text="${name}">Name</h1>
+                    <img class="img-fluid" th:src="@{/users/{profilePath}/content(profilePath=${profilePath})}"/>
                     <div class="media-body">
-                        <h1 class="mt-0" th:text="${name}">Name</h1>
-                        <form method="POST" th:action="@{/friendrequest/{profilePath}(profilePath=${profilePath})}">
-                                <button type="submit" class="btn btn-dark">Send friend request!</button>
-                        </form>
+                    <form method="POST" th:action="@{/friendrequest/{profilePath}(profilePath=${profilePath})}">
+                            <button type="submit" class="btn btn-dark btn-sm">Send connection request!</button>
+                     </form>
+                     <div th:if="${not #lists.isEmpty(topThreeSkills)}">
                         <h3 class="mt-0">Most praised skills</h3>
-                        <ul class="list-group list-group">
-                            <li class="list-group-item d-flex justify-content-between align-items-center" th:each="skill:${skillObjects}">
-                                <span th:text="${skill.skillName}">skill name</span>
-                                    <form method="POST" th:action="@{/users/{profilePath}/skills/{skillId}(profilePath=${profilePath}, skillId=${skill.id})}">
-                                        <button type="submit" class="btn btn-success btn-sm">Endorse
-                                            <span class="badge badge-dark" th:text="${skill.likeCount-1}">Likes</span>
-                                        </button>
-                                    </form>
-                            </li>
-                        </ul>
-                    </div>
+                        <div th:replace="fragments/layout::skillListing(${topThreeSkills}, ${profilePath})"></div>
+                        <div th:if="${not #lists.isEmpty(otherSkills)}">
+                            <h3 class="mt-0">Other skills</h3>
+                            <div th:replace="fragments/layout::skillListing(${otherSkills}, ${profilePath})"></div>
+                        </div>
+                     </div>
                 </div>
-
             </div>
         <footer th:replace="fragments/layout::footer"></footer>
         <div th:replace="fragments/layout::assets"></div>

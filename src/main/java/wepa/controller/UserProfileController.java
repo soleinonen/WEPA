@@ -32,8 +32,9 @@ public class UserProfileController {
         model.addAttribute("skills", skills);
         model.addAttribute("profilePath", account.getProfilePath());
         model.addAttribute("friendsOfLoggedInUser", account.getFriends());
-        List<SkillLikesDto> list = skillLikeService.getSkillLikes(account);
-        model.addAttribute("skillObjects", list);
+        List<List<SkillLikesDto>> list = skillLikeService.getSkillLikes(account);
+        model.addAttribute("topThreeSkills", list.get(0));
+        model.addAttribute("otherSkills", list.get(1));
         return "user";
     }
 
