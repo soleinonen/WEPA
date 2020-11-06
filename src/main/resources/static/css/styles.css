@@ -4,10 +4,14 @@
     background-color: #343a40;
     height: 30px;
     bottom: 0;
-    width: 100%;
+    width: 100%
 }
 
 .body {
     min-height: 200px;
-    margin-bottom: 100px;
+    margin-bottom: 200px;
+}
+
+.postaus {
+    background-color: rgb(255, 255, 255);
 }

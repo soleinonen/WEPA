@@ -61,6 +61,12 @@ public class Account extends AbstractPersistable<Long> {
     @OneToMany(mappedBy = "initiator")
     private List<FriendRequest> requestsSent = new ArrayList<>();
 
+    @OneToMany(mappedBy = "owner")
+    private List<Post> posts;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Comment> comments;
+
     public void addFriend(Account a) {
         this.friends.add(a);
     }

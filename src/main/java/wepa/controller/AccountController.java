@@ -32,10 +32,4 @@ public class AccountController {
             return "redirect:/registration";
         }
     }
-
-    @GetMapping("/feed")
-    public String showFeed() {
-        return "feed";
-    }
-
 }
