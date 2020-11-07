@@ -11,7 +11,7 @@ import wepa.model.Post;
 public interface PostRepository extends JpaRepository<Post, Long>{
 
     @EntityGraph(value="Post.comments")
-    List<Post> findByOwnerInOrderByTimestampDesc(List<Account> friends);
+    List<Post> findTop25ByOwnerInOrderByTimestampDesc(List<Account> friends);
 
     @EntityGraph(value="Post.comments")
     List<Post> findAll();

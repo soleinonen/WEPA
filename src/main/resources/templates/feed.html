@@ -10,7 +10,7 @@
             <h1>Make impact by sharing ideas</h1>
             <form method="POST" th:action="@{/posts/add}">
                 <div class="form-group">
-                    <textarea class="form-control" placeholder="Share your thoughts with the world... or at least with your friends." name="postText"></textarea>
+                    <textarea class="form-control" placeholder="What's on your mind" name="postText"></textarea>
                     <div class="text-right">
                         <button class="btn btn-dark btn-sm" type="submit">Share</button>
                     </div>
@@ -18,21 +18,25 @@
             </form>
             <h2>Latest posts from your connections</h2>
             <ul class="list-group list-group">
-                <li class="list-group-item"  th:each="post:${posts}">
+                <li class="list-group-item border border-dark"  th:each="post:${posts}">
                     <div class="postaus">
                         <div class="d-flex justify-content-between align-items-center">
-                            <p class="mb-1" th:text="${post.postText}">postText</p>
+                            <p class="mb-1 post" th:text="${post.postText}">postText</p>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-muted" th:text="${post.owner.surname+' '+post.owner.firstname+' '+post.timestamp}">metadata</small>
-                            <button class="btn btn-dark btn-sm">Like</button>
-                        </div>
+                        <form method="POST" th:action="@{/posts/{id}/addlike(id=${post.id})}">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted" th:text="${post.owner.surname+' '+post.owner.firstname+' '+post.timestamp}">metadata</small>
+                                <button class="btn btn-success btn-sm">Like
+                                    <span class="badge badge-dark" th:text="${post.likeCount}">likes</span>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                     <h5>Comments</h5>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item" th:each="comment:${post.comments}">
                             <div class="d-flex justify-content-between align-items-center">
-                                <p class="mb-1" th:text="${comment.commentText}">comment</p>
+                                <p class="mb-1 comment" th:text="${comment.commentText}">comment</p>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <small class="text-muted" th:text="${comment.owner.surname+' '+comment.owner.firstname+' '+comment.timestamp}">metadata</small>

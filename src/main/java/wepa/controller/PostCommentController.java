@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import wepa.model.Post;
 import wepa.service.AccountService;
 import wepa.service.CommentService;
+import wepa.service.PostLikeService;
 import wepa.service.PostService;
 
 @Controller
@@ -27,6 +28,9 @@ public class PostCommentController {
     @Autowired
     CommentService commentService;
 
+    @Autowired
+    PostLikeService postLikeService;
+
     @PostMapping("/posts/add")
     public String createPost(@RequestParam String postText){
         postService.createPost(postText);
@@ -36,7 +40,7 @@ public class PostCommentController {
 
     @GetMapping("/feed")
     public String showFeed(Model model) {
-        List<Post> posts = postService.get25Posts();
+        List<Post> posts = postService.getPosts();
         model.addAttribute("posts", posts);
         return "feed";
     }
@@ -44,6 +48,12 @@ public class PostCommentController {
     @PostMapping("/posts/{id}/comments/add")
     public String createComment(@RequestParam String commentText, @PathVariable Long id) {
         commentService.createComment(commentText, id);
+        return "redirect:/feed";
+    }
+
+    @PostMapping("/posts/{id}/addlike")
+    public String addLikeToPost(@PathVariable Long id) {
+        postLikeService.createPostLike(id);
         return "redirect:/feed";
     }
     

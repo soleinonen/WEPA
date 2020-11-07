@@ -25,27 +25,25 @@ public class PostService {
         post.setOwner(account);
         post.setPostText(postText);
         post.setTimestamp(LocalDateTime.now());
+        post.setLikeCount(0);
         postRepository.save(post);
     }
 
-    public List<Post> getAllPosts() {
+    public List<Post> getPosts() {
         Account account = accountService.getLoggedInUserAccount();
         List<Account> accounts = account.getFriends();
         accounts.add(account);
-        List<Post> posts = postRepository.findByOwnerInOrderByTimestampDesc(accounts);
-        return posts;
-    }
-
-    public List<Post> get25Posts(){
-        List<Post> posts = getAllPosts();
-        if(posts.size()>25) {
-            posts = posts.subList(0, 25);
-        }
+        List<Post> posts = postRepository.findTop25ByOwnerInOrderByTimestampDesc(accounts);
         return posts;
     }
 
     public Post getPostById(Long id) {
         return postRepository.getOne(id);
+    }
+
+    public void incrementLikeCount(Post post) {
+        post.setLikeCount(post.getLikeCount()+1);
+        postRepository.save(post);
     }
     
 }

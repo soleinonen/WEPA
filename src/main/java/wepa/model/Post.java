@@ -37,5 +37,10 @@ public class Post extends AbstractPersistable<Long>{
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post")
+    private List<PostLike> likes = new ArrayList<>();
+
+    private Integer likeCount;
     
 }

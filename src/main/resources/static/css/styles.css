@@ -12,6 +12,10 @@
     margin-bottom: 200px;
 }
 
-.postaus {
-    background-color: rgb(255, 255, 255);
+.post {
+    font-size: large;
+}
+
+.comment {
+    font-size: small;
 }
