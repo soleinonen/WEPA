@@ -9,10 +9,11 @@
             <div class="container">
                 <h1 class="mt-0" th:text="${name}">Name</h1>
                     <img class="img-fluid" th:src="@{/users/{profilePath}/content(profilePath=${profilePath})}"/>
-                    <div class="media-body">
-                    <form method="POST" th:action="@{/friendrequest/{profilePath}(profilePath=${profilePath})}">
-                            <button type="submit" class="btn btn-dark btn-sm">Send connection request!</button>
-                     </form>
+                    <div class="mb-3">
+                        <form method="POST" th:action="@{/friendrequest/{profilePath}(profilePath=${profilePath})}">
+                                <button type="submit" class="btn btn-dark btn-sm">Send connection request!</button>
+                        </form>
+                    </div>
                      <div th:if="${not #lists.isEmpty(topThreeSkills)}">
                         <h3 class="mt-0">Most praised skills</h3>
                         <div th:replace="fragments/layout::skillListing(${topThreeSkills}, ${profilePath})"></div>
@@ -21,7 +22,6 @@
                             <div th:replace="fragments/layout::skillListing(${otherSkills}, ${profilePath})"></div>
                         </div>
                      </div>
-                </div>
             </div>
         <footer th:replace="fragments/layout::footer"></footer>
         <div th:replace="fragments/layout::assets"></div>

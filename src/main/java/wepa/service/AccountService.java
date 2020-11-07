@@ -72,7 +72,16 @@ public class AccountService {
 
     public void changePictureForLoggedInUser(MultipartFile file) throws IOException {
         Account account = getLoggedInUserAccount();
-        account.setPicture(file.getBytes());
+        if(!file.isEmpty()) {
+            account.setPicture(file.getBytes());
+            accountRepository.save(account);
+        }
+        
+    }
+
+    public void removeLoggedInUserPicture() {
+        Account account = getLoggedInUserAccount();
+        account.setPicture(new byte[0]);
         accountRepository.save(account);
     }
 

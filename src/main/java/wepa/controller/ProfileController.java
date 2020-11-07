@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import wepa.model.Account;
 import wepa.model.FriendRequest;
-import wepa.model.Skill;
 import wepa.repository.SkillLikesDto;
 import wepa.service.AccountService;
 import wepa.service.FriendRequestService;
@@ -49,6 +48,12 @@ public class ProfileController {
     @PostMapping("/profile/picture")
     public String createPicture(@RequestParam("file") MultipartFile file) throws IOException {
         accountService.changePictureForLoggedInUser(file);
+        return "redirect:/profile";
+    }
+
+    @PostMapping("/profile/picture/remove")
+    public String removePicture() {
+        accountService.removeLoggedInUserPicture();
         return "redirect:/profile";
     }
 

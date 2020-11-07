@@ -10,22 +10,24 @@
                 <h1 th:text="${name}">Name</h1>
                 <img th:src="@{/profile/picture/content}" class="img-fluid"/>
                 <form method="POST" th:action="@{/profile/picture}" enctype="multipart/form-data">
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3 mt-0">
                         <div class="custom-file">
-                          <input type="file" name="file" class="custom-file-input" id="inputGroupFile02">
-                          <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                            <input type="file" name="file" class="custom-file-input" id="inputGroupFile02">
+                            <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose a picture</label>
                         </div>
                         <div class="input-group-append">
                             <button type="submit" class="input-group-text" id="inputGroupFileAddon02">Upload</button>
                         </div>
-                        <div class="input-group-append">
-                            <button class="input-group-text">Delete</button>
-                        </div>
                     </div>
                 </form>
                 <form method="GET" th:action="@{/profile/connections}">
-                    <div class="mt-0">
+                    <div class="mb-3">
                         <button class="btn btn-dark btn-sm">Show my connections</button>
+                    </div>
+                </form>
+                <form method="POST" th:action="@{/profile/picture/remove}">
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-danger btn-sm">Remove my profile picture</button>
                     </div>
                 </form>
                 <div th:if="${not #lists.isEmpty(topThreeSkills)}">
