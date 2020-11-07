@@ -36,14 +36,13 @@ public class ProfileController {
     @GetMapping("/profile")
     public String showProfile(Model model) {
         Account account = accountService.getLoggedInUserAccount();
-        //List<Skill> skills = account.getSkills();
         List<FriendRequest> requests = friendRequestService.getRequestsToBeReviewed(account);
         model.addAttribute("name", account.getFirstname()+" "+account.getSurname());
-        //model.addAttribute("skills", skills);
         List<List<SkillLikesDto>> list = skillLikeService.getSkillLikes(account);
         model.addAttribute("topThreeSkills", list.get(0));
         model.addAttribute("otherSkills", list.get(1));
         model.addAttribute("requests", requests);
+        model.addAttribute("profilePath", account.getProfilePath());
         return "profile";
     }
     
