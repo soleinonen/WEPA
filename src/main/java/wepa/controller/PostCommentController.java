@@ -40,7 +40,7 @@ public class PostCommentController {
 
     @GetMapping("/feed")
     public String showFeed(Model model) {
-        List<Post> posts = postService.getPosts();
+        List<Post> posts = postService.getLoggedInUserPosts();
         model.addAttribute("posts", posts);
         return "feed";
     }

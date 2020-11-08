@@ -15,7 +15,13 @@ public class FriendRequestService {
     @Autowired
     FriendRequestRepository friendRequestRepository;
 
-    public void createNewRequest(FriendRequest fr) {
+    @Autowired
+    AccountService accountService;
+
+    public void createNewRequest(String profilePath) {
+        FriendRequest fr = new FriendRequest();
+        fr.setInitiator(accountService.getLoggedInUserAccount());
+        fr.setReviewer(accountService.getByProfilePath(profilePath));
         if(friendRequestRepository.findByInitiatorAndReviewer(fr.getInitiator(), fr.getReviewer()) == null && !fr.getInitiator().getFriends().contains(fr.getReviewer())) {
             friendRequestRepository.save(fr);
         }

@@ -48,6 +48,17 @@
       </ul>
     </div>
 
+    <div th:fragment="skillListingProfile(skills, profilePath)">
+      <ul class="list-group list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center" th:each="skill:${skills}">
+            <span th:text="${skill.skillName}">skill name</span>
+              <button type="submit" class="btn btn-success btn-sm" disabled>Endorsements
+                  <span class="badge badge-dark" th:text="${skill.likeCount-1}">Likes</span>
+              </button>
+        </li>
+      </ul>
+    </div>
+
     <div th:fragment="connectionListing(connections)">
       <ul class="list-group list-group">
         <li class="list-group-item d-flex justify-content-between align-items-center" th:each="connection:${connections}">

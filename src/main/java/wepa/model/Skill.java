@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -35,5 +36,6 @@ public class Skill extends AbstractPersistable<Long>{
     private List<Account> users;
 
     @NotEmpty
+    @NotNull
     private String skillName;
 }

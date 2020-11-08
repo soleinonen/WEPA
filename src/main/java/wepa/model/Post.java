@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -29,6 +31,8 @@ public class Post extends AbstractPersistable<Long>{
     @ManyToOne
     private Account owner;
 
+    @NotEmpty
+    @NotNull
     @Lob
     @Type(type="org.hibernate.type.TextType")
     private String postText;

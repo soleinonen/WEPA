@@ -76,7 +76,6 @@ public class AccountService {
             account.setPicture(file.getBytes());
             accountRepository.save(account);
         }
-        
     }
 
     public void removeLoggedInUserPicture() {
@@ -93,11 +92,6 @@ public class AccountService {
     public byte[] getPictureByProfilePath(String profilePath) {
         Account account = accountRepository.findByProfilePath(profilePath);
         return account.getPicture();
-    }
-
-    public List<Skill> getSkillsOfLoggedInUser() {
-        Account account = getLoggedInUserAccount();
-        return account.getSkills();
     }
 
     public List<Account> queryForUsers(String query) {
@@ -124,9 +118,5 @@ public class AccountService {
         connection.removeFriend(account);
         accountRepository.save(account);
         accountRepository.save(connection);
-    }
-
-    public Account getAccountById(Long id) {
-        return accountRepository.getOne(id);
     }
 }

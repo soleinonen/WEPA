@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import wepa.model.FriendRequest;
 import wepa.service.AccountService;
 import wepa.service.FriendRequestService;
 
@@ -20,10 +19,7 @@ public class FriendRequestController {
 
     @PostMapping("/friendrequest/{profilePath}")
     public String sendFriendRequest(@PathVariable String profilePath) {
-        FriendRequest fr = new FriendRequest();
-        fr.setInitiator(accountService.getLoggedInUserAccount());
-        fr.setReviewer(accountService.getByProfilePath(profilePath));
-        friendRequestService.createNewRequest(fr);
+        friendRequestService.createNewRequest(profilePath);
         return "redirect:/users/"+profilePath;
     }
 

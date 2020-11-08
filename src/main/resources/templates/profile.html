@@ -32,10 +32,10 @@
                 </form>
                 <div th:if="${not #lists.isEmpty(topThreeSkills)}">
                     <h3 class="mt-0">Most praised skills</h3>
-                    <div th:replace="fragments/layout::skillListing(${topThreeSkills}, ${profilePath})"></div>
+                    <div th:replace="fragments/layout::skillListingProfile(${topThreeSkills}, ${profilePath})"></div>
                     <div th:if="${not #lists.isEmpty(otherSkills)}">
                         <h3 class="mt-0">Other skills</h3>
-                        <div th:replace="fragments/layout::skillListing(${otherSkills}, ${profilePath})"></div>
+                        <div th:replace="fragments/layout::skillListingProfile(${otherSkills}, ${profilePath})"></div>
                     </div>
                 </div>
                 <form method="POST" th:action="@{/profile/skills}">

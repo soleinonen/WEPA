@@ -12,7 +12,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     @EntityGraph(value="Account.skills")
     Account findByUsername(String username);
 
-    Account findBySurname(String surname);
     Account findByFirstname(String firstname);
     List<Account> findBySurnameIn(Collection<String> query);
     List<Account> findByFirstnameIn(Collection<String> query);

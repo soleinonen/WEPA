@@ -29,7 +29,7 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public List<Post> getPosts() {
+    public List<Post> getLoggedInUserPosts() {
         Account account = accountService.getLoggedInUserAccount();
         List<Account> accounts = account.getFriends();
         accounts.add(account);
