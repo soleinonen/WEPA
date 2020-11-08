@@ -33,7 +33,7 @@ public class AccountService {
     SkillLikeService skillLikeService;
 
     public boolean createNewAccount(String firstname, String surname, String username, String password, String profilePath) {
-        if(accountRepository.findByUsername(username) != null) {
+        if(accountRepository.findByUsername(username) != null || accountRepository.findByProfilePath(profilePath) != null) {
             return false;
         }
         Account account = new Account();
