@@ -5,16 +5,17 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import wepa.model.Account;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
     @EntityGraph(value="Account.skills")
     Account findByUsername(String username);
-
     Account findByFirstname(String firstname);
-    List<Account> findBySurnameIn(Collection<String> query);
-    List<Account> findByFirstnameIn(Collection<String> query);
     @EntityGraph(value="Account.skills")
     Account findByProfilePath(String profilePath);
+    @Query(value = "SELECT DISTINCT a FROM Account a WHERE LOWER(a.firstname) LIKE LOWER(CONCAT('%',:query,'%')) OR LOWER(a.surname) LIKE LOWER(CONCAT('%',:query,'%'))")
+    List<Account> findByQuery(@Param("query") String query);
 }

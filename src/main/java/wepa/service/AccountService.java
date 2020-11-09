@@ -95,16 +95,7 @@ public class AccountService {
     }
 
     public List<Account> queryForUsers(String query) {
-        List<Account> persons = new ArrayList<>();
-        List<String> queryParts = Arrays.asList(query.split(" "));
-        persons = accountRepository.findBySurnameIn(queryParts);
-        List<Account> personsByFirstname = accountRepository.findByFirstnameIn(queryParts);
-        for(Account a: personsByFirstname) {
-            if(!persons.contains(a)) {
-                persons.add(a);
-            }
-        }
-        return persons;
+        return accountRepository.findByQuery(query);
     }
 
     public Account getByProfilePath(String profilePath) {
