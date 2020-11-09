@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -93,7 +95,8 @@ public class AccountService {
     }
 
     public List<Account> queryForUsers(String query) {
-        return accountRepository.findByQuery(query);
+        Pageable pageable = PageRequest.of(0, 25);
+        return accountRepository.findByQuery(query, pageable);
     }
 
     public Account getByProfilePath(String profilePath) {

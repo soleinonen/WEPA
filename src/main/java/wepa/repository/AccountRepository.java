@@ -1,8 +1,8 @@
 package wepa.repository;
 
-import java.util.Collection;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +16,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     Account findByFirstname(String firstname);
     @EntityGraph(value="Account.skills")
     Account findByProfilePath(String profilePath);
-    @Query(value = "SELECT DISTINCT a FROM Account a WHERE LOWER(a.firstname) LIKE LOWER(CONCAT('%',:query,'%')) OR LOWER(a.surname) LIKE LOWER(CONCAT('%',:query,'%'))")
-    List<Account> findByQuery(@Param("query") String query);
+    @Query(value = "SELECT DISTINCT a FROM Account a WHERE LOWER(a.firstname) LIKE LOWER(CONCAT('%',:query,'%')) OR LOWER(a.surname) LIKE LOWER(CONCAT('%',:query,'%')) OR LOWER(CONCAT(a.firstname,' ',a.surname)) LIKE LOWER(CONCAT('%',:query,'%'))")
+    List<Account> findByQuery(@Param("query") String query, Pageable pageable);
 }
