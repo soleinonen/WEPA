@@ -22,7 +22,7 @@ public class FriendRequestService {
         FriendRequest fr = new FriendRequest();
         fr.setInitiator(accountService.getLoggedInUserAccount());
         fr.setReviewer(accountService.getByProfilePath(profilePath));
-        if(friendRequestRepository.findByInitiatorAndReviewer(fr.getInitiator(), fr.getReviewer()) == null && !fr.getInitiator().getFriends().contains(fr.getReviewer())) {
+        if(friendRequestRepository.findByInitiatorAndReviewer(fr.getInitiator(), fr.getReviewer()) == null && !fr.getInitiator().getFriends().contains(fr.getReviewer()) && fr.getInitiator()!=fr.getReviewer()) {
             friendRequestRepository.save(fr);
         }
     }
